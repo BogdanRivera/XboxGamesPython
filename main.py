@@ -13,34 +13,22 @@ def run():
     df = df[df['TIME'] == '100-120 hours']
     labels = df['GAME'].values
     values = df['RATIO'].values
-    while opc != 3 and opc<3:
-        menu.imprime()
-        try:
-            opc = int(input("Por favor elige una opcion: "))
-        except ValueError as error: 
-            print(error)
-            opc=0
-    if opc>=0 and opc<=4:
-        if opc==1:
-            print(df)
-            opc = 0
-        elif opc==2:
-            x = buscar(df)
-            print(x)
-            opc = 0  
-        elif opc==3:
-            graph.generate_bar_chart('Juegos',labels[0:7],values[0:7])
-            opc = 0
-        else:
-            return 
+    juego = input("Ingrese un nombre para buscar: ")
+    game = df[df['GAME']==juego]
+    if str(game)!="Empty DataFrame":
+        print("Ratio:",game['RATIO'].values)
+        print("GAMERS:",game['GAMERS'].values)
+        print("COMP %:",game['COMP %'].values)
+        print("RATING:",game['COMP %'],values)
+        print("ADDED:",game['ADDED'].values)
+        print("GAMERSCORE:",game['ADDED'].values)
     else:
-        opc = 0
-            
+        print("No se encontró el juego")
 
-def buscar(data):
-    juego = input("Ingresa el nombre de un juego: ")
-    x = data[data['GAME']==juego]
-    return x
+    print("Se realizó la gráfica de los tres primeros juegos\n")
+    graph.generate_pie_chart('Juegos',labels[0:3],values[0:3])
+    
+
 
 
 
